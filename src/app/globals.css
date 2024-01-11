@@ -13,5 +13,9 @@ header{
 }
 
 button{
-  @apply h-14 px-16 py-2.5 bg-yellow-500 rounded-[500px] shadow justify-center items-center gap-2 inline-flex
+  @apply h-14 px-16 py-2.5 bg-yellow-500 rounded-[500px] shadow-md shadow-yellow-500/25 justify-center items-center gap-2 inline-flex font-bold text-lg w-min
+}
+
+textarea, select {
+  @apply w-full h-[104px] p-4 bg-white rounded-lg border border-gray-400 
 }
