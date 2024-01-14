@@ -51,7 +51,7 @@ export function useSatisfactionSurvey() {
   function handleValidationData(){  
     for (const item of data.itens) {
       if (item.mandatory && (item.answerValue === undefined || item.answerValue.length == 0) ) {
-        return item
+        return false
       }
     }
     return true

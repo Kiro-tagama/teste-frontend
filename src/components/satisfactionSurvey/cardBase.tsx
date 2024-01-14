@@ -1,4 +1,4 @@
-import { PropsGET, PropsItens } from "@/hooks/useSatisfactionSurvey";
+import { PropsGET } from "@/hooks/useSatisfactionSurvey";
 import { CustomInputs } from "../form/CustomInputs";
 import { Dispatch, SetStateAction } from "react";
 
