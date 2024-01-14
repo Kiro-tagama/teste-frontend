@@ -26,13 +26,12 @@ export function CardBase({ data,setData,handleSendPost}: Props) {
 						{data.itens.map((item, index) =>
 							<CustomInputs 
 								key={index} index={index}
-								primaryTitle="Primeiro Titulo"
-								secondaryTitle="Secundario Titulo"
+								title="Primeiro Titulo"
 								type={item.typeQuestion} 
 								data={item} setData={setData}
 							/>
 						)}
-						<button >Enviar</button>
+						<button>Enviar</button>
 						</>
 					}
 				</form>

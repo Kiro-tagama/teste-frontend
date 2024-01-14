@@ -3,6 +3,9 @@ import { Header } from "@/components/header";
 import { CardBase } from "@/components/satisfactionSurvey/cardBase";
 import { useSatisfactionSurvey } from "@/hooks/useSatisfactionSurvey";
 
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Home() {
   const {
     data,setData,
@@ -24,9 +27,27 @@ export default function Home() {
     </main>
 
     <hr className=" mt-8"/>
-    <footer className="p-8">
-      teste footer
+    <footer className="p-8 flex flex-col items-center">
+      <p>botões adicionais para simular o post do formulário</p>
+      <div className="my-2 flex gap-4">
+      <button onClick={()=>{handleSendError()}} className='bg-red-600 hover:bg-red-500 shadow-red-600/25 !w-20'>Error</button>
+      <button onClick={()=>handleSendSuccess()} className='bg-green-600 hover:bg-green-500 shadow-green-600/25 !w-20'>Success</button>
+      </div>
+      <p>Obs: o botão Enviar seria o terceiro botão do evento de post onde existe uma</p>
     </footer>
+
+    <ToastContainer
+      position="bottom-left"
+      autoClose={5000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      pauseOnHover
+      enableMultiContainer
+      icon={false}
+    />
     </>
   )
 }

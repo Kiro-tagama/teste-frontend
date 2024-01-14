@@ -9,21 +9,16 @@ import { PropsGET, PropsItens } from "@/hooks/useSatisfactionSurvey";
 import { Dispatch, SetStateAction, useState } from "react";
 import starIcon from "../../../public/assets/Icon/star.svg";
 import Image from "next/image";
-import { randomUUID } from "crypto";
 
 interface PropsInputs {
-  index: number
+  index: number;
   type: number;
   data: PropsItens;
   setData: Dispatch<SetStateAction<PropsGET>>;
-  primaryTitle: string;
-  secondaryTitle: string;
+  title: string;
 }
 
-export function CustomInputs({
-  index, type, data, setData,
-  primaryTitle, secondaryTitle
-}: PropsInputs) {
+export function CustomInputs({ index, type, data, setData, title }: PropsInputs) {
   const { itens, horizontal, content, mandatory, answerValue } = data
 
   const handleInputChangeDynamic = (value: string | number | number[]) => {
@@ -37,14 +32,15 @@ export function CustomInputs({
   const textArea = (
     <textarea
       placeholder="Digite aqui ..."
-      value={answerValue || ''}
+      value={typeof answerValue == 'string' ? answerValue : ''}
       onChange={(e) => handleInputChangeDynamic(e.target.value)}
     />
   );
 
   const starRating = () => {
-    const data = answerValue - 1
+    const data = typeof answerValue == 'number' ? answerValue - 1 : 0
     const [star, setStar] = useState(data)
+
     return (
       <div className="flex gap-4 my-4"
         onMouseLeave={() => setStar(data)}
@@ -74,13 +70,13 @@ export function CustomInputs({
   )
 
   const renderRadioOptions = () => {
-    const list = type !== 2 ? itens : [1,2,3,4,5,6,7,8,9,10]
-    
+    const list = type !== 2 ? itens : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
     return (
       <div className={`flex flex-wrap gap-3 flex-row
         ${type === 2 ? ' justify-between mt-9' : ''}
       `}>
-        {list?.map((item:any, i: number) => {
+        {list?.map((item: any, i: number) => {
           const value = type !== 2 ? item.value : item
           return (
             <label
@@ -111,15 +107,15 @@ export function CustomInputs({
           <label
             key={index}
             className={`flex items-center gap-1.5 cursor-pointer
-              ${horizontal? 'px-4 py-2 rounded-full border border-gray-400 hover:border-yellow-400':''}
-              ${horizontal && Array.isArray(answerValue) && answerValue.includes(item.value) ?'bg-yellow-400 border-yellow-400':''}
+              ${horizontal ? 'px-4 py-2 rounded-full border border-gray-400 hover:border-yellow-400' : ''}
+              ${horizontal && Array.isArray(answerValue) && answerValue.includes(item.value) ? 'bg-yellow-400 border-yellow-400' : ''}
             `}
           >
             <input
               type="checkbox"
               name={`question-${index}`}
               value={item.value}
-              className={`${horizontal?'hidden':''}`}
+              className={`${horizontal ? 'hidden' : ''}`}
               checked={Array.isArray(answerValue) && answerValue.includes(item.value)}
               onChange={() => {
                 const value = item.value
@@ -154,7 +150,7 @@ export function CustomInputs({
 
   return (
     <div >
-      {type === 1 ? <h1>{primaryTitle}</h1> : type === 2 ? <h1>{secondaryTitle}</h1> : null}
+      {type === 1 || type === 2 ? <h1>{title}</h1> : null}
       {type === 4 ? null :
         <p className=" mb-2">
           {content}  {mandatory ? "" : <span className=" text-gray-500">{'(opcional)'}</span>}

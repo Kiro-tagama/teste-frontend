@@ -6,6 +6,7 @@
 
 *{
   font-family: 'Poppins', sans-serif;
+  @apply text-gray-900
 }
 
 header{
@@ -29,4 +30,27 @@ select{
 
 form h1{
   @apply text-2xl font-semibold mb-2
+}
+
+.Toastify__toast-container{
+  @apply sm:p-8 !p-4 max-sm:!mb-5 sm:!w-[45%]
+}
+
+.Toastify__toast{ 
+  @apply !w-auto !p-6 !rounded-2xl !flex !items-center justify-center bg-blend-multiply border-2 border-gray-400 my-2
+}
+.Toastify__toast-body{
+  @apply !m-0 !p-0
+}
+.Toastify__close-button{
+  @apply hover:bg-inherit hover:shadow-none shadow-none h-min my-auto
+}
+.Toastify__toast--success{
+  @apply  !bg-green-100 border-green-500
+}
+.Toastify__toast--warning {
+  @apply  !bg-yellow-100 border-yellow-500
+}
+.Toastify__toast--error {
+  @apply !bg-red-100 border-red-500
 }

@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { ToastMsg } from "@/components/ToastMsg";
 
 export interface PropsItens{
 	typeQuestion : number
@@ -46,15 +48,79 @@ export function useSatisfactionSurvey() {
     getData()
   },[])
 
-  function handleValidationData(){}
-
-  function handleSendPost(props:any){
-    props.preventDefault();
-    console.log(data);
+  function handleValidationData(){  
+    for (const item of data.itens) {
+      if (item.mandatory && (item.answerValue === undefined || item.answerValue.length == 0) ) {
+        return item
+      }
+    }
+    return true
   }
 
-  function handleSendError(){}
-  function handleSendSuccess(){}
+  function handleSendPost(props:any){
+    props.preventDefault(); // impede do form restartar
+
+    const valid = handleValidationData()
+    console.log(valid);
+    
+    !valid?
+      toast.warning(ToastMsg({
+        type:"warning",
+        title:"Ops!",
+        text:"Acho que esqueceu algo, os campos obrigatórios devem ser preenchidos"
+      })):
+      axios.post(urls.post,data)
+      .then(()=>
+        toast.success(ToastMsg({
+          type:"success",
+          title:"Tudo certo!",
+          text:"Suas alterações foram salvas com sucesso!"
+        }))
+      )
+      .catch(()=>
+        toast.error(ToastMsg({
+          type:"error",
+          title:"Algo deu errado",
+          text:"Tente novamente em alguns instantes"
+        }))
+      )
+  }
+
+  function handleSendError(){
+    axios.get(urls.error,data)
+      .then((res)=>
+        toast.error(ToastMsg({
+          type:"error",
+          title:"Teste de Erro",
+          text:res.data.error
+        }))
+      )
+      .catch((err)=>
+        toast.error(ToastMsg({
+          type:"error",
+          title:"Algo deu errado",
+          text:"Tente novamente em alguns instantes"
+        }))
+      )
+  }
+  function handleSendSuccess(){
+    axios.get(urls.success,data)
+      .then((res)=>
+        toast.success(ToastMsg({
+          type:"success",
+          title:"Teste de Sucesso",
+          text:res.data.error
+        }))
+      )
+      .catch((err)=>
+        
+        toast.error(ToastMsg({
+          type:"error",
+          title:"Algo deu errado",
+          text:"Tente novamente em alguns instantes"
+        }))
+      )
+  }
 
   return{
     data,setData,
