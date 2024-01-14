@@ -6,9 +6,8 @@
 // Valor 6: Questões de seleção múltipla;
 
 import { PropsGET, PropsItens } from "@/hooks/useSatisfactionSurvey";
-import { Dispatch, SetStateAction, useState } from "react";
-import starIcon from "../../../public/assets/Icon/star.svg";
-import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
+import { StarRating } from "./StarRating";
 
 interface PropsInputs {
   index: number;
@@ -36,27 +35,6 @@ export function CustomInputs({ index, type, data, setData, title }: PropsInputs)
       onChange={(e) => handleInputChangeDynamic(e.target.value)}
     />
   );
-
-  const starRating = () => {
-    const data = typeof answerValue == 'number' ? answerValue - 1 : 0
-    const [star, setStar] = useState(data)
-
-    return (
-      <div className="flex gap-4 my-4"
-        onMouseLeave={() => setStar(data)}
-      >
-        {[...Array(5)].map((_, index) =>
-          <span key={index}
-            onMouseEnter={() => setStar(index)}
-            onClick={() => handleInputChangeDynamic(index + 1)}
-            className={`w-16 h-16 flex justify-center items-center `}>
-            <Image src={starIcon} alt="star"
-              className={` transition-all ${star < index ? ' saturate-0' : ''}`} />
-          </span>
-        )}
-      </div>
-    )
-  }
 
   const select = (
     <select className={`h-14 ${!answerValue ? 'text-gray-500' : ''}`}
@@ -140,7 +118,7 @@ export function CustomInputs({ index, type, data, setData, title }: PropsInputs)
 
 
   const typeQuestionComponent: any = {
-    1: starRating(),
+    1: <StarRating answerValue={answerValue} handleInputChangeDynamic={handleInputChangeDynamic}/>,
     2: renderRadioOptions(),
     3: textArea,
     4: select,
