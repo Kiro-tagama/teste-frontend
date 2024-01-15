@@ -1,5 +1,5 @@
 import { useState } from "react";
-import starIcon from "../../../public/assets/Icon/star.svg";
+import starIcon from "../../../../public/assets/Icon/star.svg";
 import Image from "next/image";
 
 export const StarRating = ({answerValue,handleInputChangeDynamic}:any) => {

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import logo from "../../public/assets/SUA LOGO.svg";
 import menuIcon from "../../public/assets/Icon/regular.svg";
-import arrowIcon from "../../public/assets/Icon/arrow.svg";
 import arrowWhiteIcon from "../../public/assets/Icon/arrowWhite.svg";
 import { useState } from 'react';
 
@@ -36,6 +35,21 @@ export function Header() {
               className='brightness-200'
             />
           </div>
+
+          <div
+            onMouseLeave={()=>setShowUserInfo(false)}
+            className={`
+            p-8 flex flex-col gap-5 rounded-xl w-64
+            bg-gray-900 absolute top-20 -ml-24 text-slate-100  overflow-hidden transition-all duration-500
+            ${showUserInfo? 'opacity-100 visible':'opacity-0 invisible'}
+            `}
+          >
+            <p className='text-slate-100'>{userName}</p>
+            <hr />
+            {[...Array(5)].map((_,index)=>
+              <a key={index}>Option {index}</a>
+            )}
+          </div>
         </div>
       </div>
     </header>
@@ -43,7 +57,7 @@ export function Header() {
     <aside
       onMouseLeave={()=>setShowAside(false)}
       className={`
-      bg-gray-900 fixed h-full top-0 left-0 pt-20 text-slate-100 overflow-hidden transition-all duration-500
+      bg-gray-900 z-40 fixed h-full top-0 left-0 pt-20 text-slate-100 overflow-hidden transition-all duration-500
       ${showAside? 'w-52':'w-0'}
       `}
     >
@@ -51,25 +65,12 @@ export function Header() {
         <p className='text-slate-100'>sideBar</p>
         <hr />
         {[...Array(5)].map((_,index)=>
-          <a key={index} className='text-slate-100'>Option {index}</a>
+          <a key={index} className='text-slate-100 min-w-40'>Option {index}</a>
         )}
       </div>
     </aside>
 
-    <div
-      onMouseLeave={()=>setShowUserInfo(false)}
-      className={`
-      p-8 flex flex-col gap-5 rounded-xl w-64
-      bg-gray-900 fixed top-20 right-5 text-slate-100  overflow-hidden transition-all duration-500
-      ${showUserInfo? 'opacity-100 visible':'opacity-0 invisible'}
-      `}
-    >
-      <p className='text-slate-100'>{userName}</p>
-      <hr />
-      {[...Array(5)].map((_,index)=>
-        <a key={index}>Option {index}</a>
-      )}
-    </div>
+   
     </>
   )
 }

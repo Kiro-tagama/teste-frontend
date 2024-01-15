@@ -62,6 +62,7 @@ export function useSatisfactionSurvey() {
 
     const valid = handleValidationData()
     console.log(valid);
+    console.log(data);
     
     !valid?
       toast.warning(ToastMsg({

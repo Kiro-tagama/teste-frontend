@@ -7,7 +7,11 @@
 
 import { PropsGET, PropsItens } from "@/hooks/useSatisfactionSurvey";
 import { Dispatch, SetStateAction } from "react";
-import { StarRating } from "./StarRating";
+
+import { StarRating } from "./types/StarRating";
+import { RadioInput } from "./types/RadioInut";
+import { CheckboxInput } from "./types/CheckboxInput";
+import { SelectInput, TextArea } from "./types/textAreaAndSelectInput";
 
 interface PropsInputs {
   index: number;
@@ -28,102 +32,24 @@ export function CustomInputs({ index, type, data, setData, title }: PropsInputs)
     });
   };
 
-  const textArea = (
-    <textarea
-      placeholder="Digite aqui ..."
-      value={typeof answerValue == 'string' ? answerValue : ''}
-      onChange={(e) => handleInputChangeDynamic(e.target.value)}
-    />
-  );
-
-  const select = (
-    <select className={`h-14 ${!answerValue ? 'text-gray-500' : ''}`}
-      defaultValue={'DEFAULT'}
-      onChange={(e) => handleInputChangeDynamic(e.target.value)}
-    >
-      <option value={'DEFAULT'} disabled>{content}</option>
-      {itens?.map((item, index) => type === 4 ?
-        <option key={index} value={item.value}>{item.description}</option> : null)}
-    </select>
-  )
-
-  const renderRadioOptions = () => {
-    const list = type !== 2 ? itens : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-    return (
-      <div className={`flex flex-wrap gap-3 flex-row
-        ${type === 2 ? ' justify-between mt-9' : ''}
-      `}>
-        {list?.map((item: any, i: number) => {
-          const value = type !== 2 ? item.value : item
-          return (
-            <label
-              key={i}
-              className={`flex items-center cursor-pointer ${type === 2 ? 'flex-col gap-2' : 'gap-1.5'}`}
-            >
-              <input
-                type="radio"
-                className="cursor-pointer"
-                name={`question-${index}`}
-                value={value}
-                checked={answerValue === value}
-                onChange={() => handleInputChangeDynamic(value)} />
-              <span>{item.description || item}</span>
-            </label>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const renderCheckboxOptions = (
-    <div
-      className={`flex flex-wrap gap-3 ${horizontal || type === 2 ? 'flex-row' : 'flex-col'} ${type === 2 ? ' justify-between mt-9' : ''}`}
-    >
-      {itens?.map((item, index) => {
-        return (
-          <label
-            key={index}
-            className={`flex items-center gap-1.5 cursor-pointer
-              ${horizontal ? 'px-4 py-2 rounded-full border border-gray-400 hover:border-yellow-400' : ''}
-              ${horizontal && Array.isArray(answerValue) && answerValue.includes(item.value) ? 'bg-yellow-400 border-yellow-400' : ''}
-            `}
-          >
-            <input
-              type="checkbox"
-              name={`question-${index}`}
-              value={item.value}
-              className={`${horizontal ? 'hidden' : ''}`}
-              checked={Array.isArray(answerValue) && answerValue.includes(item.value)}
-              onChange={() => {
-                const value = item.value
-                let newSelectedValues;
-
-                if (Array.isArray(answerValue)) {
-                  newSelectedValues = answerValue.includes(value)
-                    ? answerValue.filter((val) => val !== value)
-                    : [...answerValue, value];
-                } else {
-                  newSelectedValues = [value];
-                }
-
-                handleInputChangeDynamic(newSelectedValues);
-              }} />
-            <span>{item.description}</span>
-          </label>
-        );
-      })}
-    </div>
-  )
-
+  const inputsProps={
+    horizontal,
+    index,
+    type,
+    itens,
+    content,
+    mandatory,
+    answerValue,
+    handleInputChangeDynamic,
+  }
 
   const typeQuestionComponent: any = {
-    1: <StarRating answerValue={answerValue} handleInputChangeDynamic={handleInputChangeDynamic}/>,
-    2: renderRadioOptions(),
-    3: textArea,
-    4: select,
-    5: renderRadioOptions(),
-    6: renderCheckboxOptions,
+    1: <StarRating {...inputsProps}/>,
+    2: <RadioInput {...inputsProps}/>,
+    3: <TextArea {...inputsProps}/>,
+    4: <SelectInput {...inputsProps}/>,
+    5: <RadioInput {...inputsProps}/>,
+    6: <CheckboxInput {...inputsProps}/>
   }
 
   return (
