@@ -30,7 +30,7 @@ export default function Home() {
 
     <hr className=" mt-8"/>
     <footer className="p-8 flex flex-col items-center">
-      <p>botões adicionais para simular o post do formulário</p>
+      <p>Botões adicionais para simular o post do formulário</p>
       <div className="my-2 flex gap-4">
       <button onClick={()=>{handleSendError()}} className='bg-red-600 hover:bg-red-500 shadow-red-600/25 !w-20'>Error</button>
       <button onClick={()=>handleSendSuccess()} className='bg-green-600 hover:bg-green-500 shadow-green-600/25 !w-20'>Success</button>

@@ -1,23 +1,25 @@
 # Teste Front-end
 
+deploy feioto na Vercel
+[ir para o site](https://teste-frontend-fidelimax.vercel.app/) 
+
+## Rodando localmente
+
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+ou use `yarn` `pnpm` `bun`
 
 Abra em [http://localhost:3000](http://localhost:3000) 
 
-# comentarios
+## comentários 
+Não foi usado nada relacionado a paginação além do básico
 
-não foi usado nada relacionado a paginação alem do basico
+Optei por usar um hook customizado ao invés de contexto pois o tamanho da estrutura é pequeno 
 
-optei por usar um hook customizado ao invez de contexto pois o tamanho da estrutura é pequeno
+Os inputs do formulário são totalmente adaptados para os 6 tipos apresentado 
 
-os inputs do formulario são totalmente adaptados para os 6 tipos apresentado
+Optei por usar as cores do próprio Tailwind css ao invés de adicionar uma por uma do layout
 
-optei por usar as cores do proprio taillwind css
+Mantive o mesmo layout do header no mobile e adicionei uma limitação no textArea
