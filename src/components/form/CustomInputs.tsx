@@ -8,10 +8,10 @@
 import { PropsGET, PropsItens } from "@/hooks/useSatisfactionSurvey";
 import { Dispatch, SetStateAction } from "react";
 
-import { StarRating } from "./types/StarRating";
-import { RadioInput } from "./types/RadioInut";
-import { CheckboxInput } from "./types/CheckboxInput";
-import { SelectInput, TextArea } from "./types/textAreaAndSelectInput";
+import { StarRating } from "./inputTypes/StarRating";
+import { RadioInput } from "./inputTypes/RadioInut";
+import { CheckboxInput } from "./inputTypes/CheckboxInput";
+import { SelectInput, TextArea } from "./inputTypes/textAreaAndSelectInput";
 
 interface PropsInputs {
   index: number;

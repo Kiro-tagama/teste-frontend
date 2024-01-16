@@ -1,11 +1,18 @@
 import { Key } from "react";
 
-export function TextArea({answerValue,handleInputChangeDynamic}:any){ return(
+export function TextArea({answerValue,handleInputChangeDynamic}:any){ 
+  const lengthText = answerValue? answerValue.length : '0'
+  const lengthMax = 250
+
+  return(
+  <>
   <textarea
     placeholder="Digite aqui ..."
+    maxLength={lengthMax}
     value={typeof answerValue == 'string' ? answerValue : ''}
-    onChange={(e) => handleInputChangeDynamic(e.target.value)}
-  />
+    onChange={(e) => handleInputChangeDynamic(e.target.value)} />
+    <p className="text-right h-0 text-sm text-gray-400">{lengthText} / {lengthMax}</p> 
+  </>
 );}
 
 export function SelectInput({type,itens,content,answerValue,handleInputChangeDynamic}:any){ return(
