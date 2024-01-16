@@ -1,6 +1,6 @@
 # Teste Front-end
 
-deploy feioto na Vercel
+deploy feito na Vercel
 [ir para o site](https://teste-frontend-fidelimax.vercel.app/) 
 
 ## Rodando localmente
